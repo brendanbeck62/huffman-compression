@@ -1,14 +1,18 @@
 
+def display_welcome():
+    print ("Huffman Compresion Program")
+    print ("**************************")
 
-print ("Huffman Compresion Program")
-print ("**************************")
+    my_string = input("Please enter a string to comress:")
+    len_my_string = len(my_string)
 
-my_string = input("Please enter a string to comress:")
-len_my_string = len(my_string)
+    print("Your message is:")
+    print(my_string)
+    print("Your data is", len_my_string * 8, "bits long")
+    return my_string
 
-print("Your message is:")
-print(my_string)
-print("Your data is", len_my_string * 8, "bits long")
+my_string = display_welcome()
+
 
 # create a list of characters and their frequency and a list of characters in use
 letters = []
