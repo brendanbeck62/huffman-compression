@@ -11,8 +11,9 @@ def display_welcome():
     print("Your data is", len_my_string * 8, "bits long")
     return my_string
 
-my_string = display_welcome()
 
+
+my_string = display_welcome()
 
 # create a list of characters and their frequency and a list of characters in use
 letters = []
@@ -107,31 +108,35 @@ for character in my_string:
 # convert the string to an actual binary digit
 binary = ((bin(int(bitstring, base=2))))
 
-# summary of data compression
-uncompressed_file_size = len(my_string) * 7
-compressed_file_size = len(binary) - 2
-print ("Your original file size was", uncompressed_file_size, "bits.")
-print ("The compressed file is", compressed_file_size, "bits.")
-print ("This is as saving of ", uncompressed_file_size-compressed_file_size, "bits, with a compression ratio of", round(uncompressed_file_size/compressed_file_size,1), ": 1")
 
-# show the data compressed to a string of binary digits
-print ("Your message in binary is:")
-print (binary)
+def display_summary(my_string, binary, letter_binary):
+    # summary of data compression
+    uncompressed_file_size = len(my_string) * 7
+    compressed_file_size = len(binary) - 2
+    print ("Your original file size was", uncompressed_file_size, "bits.")
+    print ("The compressed file is", compressed_file_size, "bits.")
+    print ("This is as saving of ", uncompressed_file_size-compressed_file_size, "bits, with a compression ratio of", round(uncompressed_file_size/compressed_file_size,1), ": 1")
 
-# uncompress the data, using letter_binary array (basically a dictionary of letters and codes)
-# convert binary to string
-bitstring = str(binary[2:])
-uncompressed_string = ""
-code = ""
-for digit in bitstring:
-    code = code + digit
-    pos = 0
-    for letter in letter_binary:
-        if code == letter[1]:
-            uncompressed_string = uncompressed_string + letter_binary[pos][0]
-            code = ""
-        pos += 1
+    # show the data compressed to a string of binary digits
+    print ("Your message in binary is:")
+    print (binary)
 
-# output the uncompressed data
-print ("Your uncompressed message is:")
-print (uncompressed_string)
+    # uncompress the data, using letter_binary array (basically a dictionary of letters and codes)
+    # convert binary to string
+    bitstring = str(binary[2:])
+    uncompressed_string = ""
+    code = ""
+    for digit in bitstring:
+        code = code + digit
+        pos = 0
+        for letter in letter_binary:
+            if code == letter[1]:
+                uncompressed_string = uncompressed_string + letter_binary[pos][0]
+                code = ""
+            pos += 1
+
+    # output the uncompressed data
+    print ("Your uncompressed message is:")
+    print (uncompressed_string)
+
+display_summary(my_string, binary, letter_binary)
