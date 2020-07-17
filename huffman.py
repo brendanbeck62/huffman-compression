@@ -34,7 +34,7 @@ nodes.sort()
 huffman_tree = []
 huffman_tree.append(nodes)
 
-# recursibely combine base nodes to create the huffman tree and allocates either a 0 or 1 to each
+# recursively combine base nodes to create the huffman tree and allocates either a 0 or 1 to each
 # pair of nodes prior to combining which will be later used to create the binary code for each letter
 def combine(nodes):
     pos = 0
