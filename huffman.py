@@ -1,14 +1,23 @@
+import sys
+
+PRINT = False
 
 def display_welcome():
-    print ("Huffman Compresion Program")
-    print ("**************************")
+    global PRINT
+    print("Huffman Compresion Program")
+    print("**************************")
 
     my_string = input("Please enter a string to comress:")
     len_my_string = len(my_string)
 
-    print("Your message is:")
-    print(my_string)
-    print("Your data is", len_my_string * 8, "bits long")
+    verbose = input("Would you like verbose [y/n]:")
+    if verbose == 'y':
+        PRINT = True
+
+    if PRINT:
+        print("Your message is:")
+        print(my_string)
+        print("Your data is", len_my_string * 8, "bits long")
     return my_string
 
 
@@ -61,10 +70,11 @@ newnodes = combine(nodes)
 
 # tree needs to be inverted - this gives a rough visualisation
 huffman_tree.sort(reverse=True)
-print ("Here is the Huffman Tree, showing the merged nodes and binary pathways")
+if PRINT:
+    print ("Here is the Huffman Tree, showing the merged nodes and binary pathways")
 
 # remove duplicate items in the huffman tree and create an array CHECKLIST with just the nodes
-# the following code is ONLY for visualising and printing the tree array and does nothing for the algorithm
+# NOTE: the following code is ONLY for visualising and printing the tree array and does nothing for the algorithm
 checklist = []
 for level in huffman_tree:
     for node in level:
@@ -74,10 +84,12 @@ for level in huffman_tree:
             level.remove(node)
 count = 0
 for level in huffman_tree:
-    print ("Level", count, ":", level)
+    if PRINT:
+        print ("Level", count, ":", level)
     count += 1
 
-print ()
+if PRINT:
+    print ()
 
 # build the binary codes for each character - easy cop out if there is only 1 type of character in the string
 letter_binary = []
@@ -94,9 +106,10 @@ else:
         letter_binary.append(letter_code)
 
 # output letters with binary codes
-print ("Your binary codes are as follows:")
-for letter in letter_binary:
-    print (letter[0], letter[1])
+if PRINT:
+    print ("Your binary codes are as follows:")
+    for letter in letter_binary:
+        print (letter[0], letter[1])
 
 # creates bitstring of the original message using the new codes you have generated for each letter
 bitstring = ""
@@ -115,11 +128,12 @@ def display_summary(my_string, binary, letter_binary):
     compressed_file_size = len(binary) - 2
     print ("Your original file size was", uncompressed_file_size, "bits.")
     print ("The compressed file is", compressed_file_size, "bits.")
-    print ("This is as saving of ", uncompressed_file_size-compressed_file_size, "bits, with a compression ratio of", round(uncompressed_file_size/compressed_file_size,1), ": 1")
+    print ("This is as saving of", uncompressed_file_size-compressed_file_size, "bits, with a compression ratio of", round(uncompressed_file_size/compressed_file_size,1), ": 1")
 
     # show the data compressed to a string of binary digits
-    print ("Your message in binary is:")
-    print (binary)
+    if PRINT:
+        print ("Your message in binary is:")
+        print (binary)
 
     # uncompress the data, using letter_binary array (basically a dictionary of letters and codes)
     # convert binary to string
@@ -136,7 +150,8 @@ def display_summary(my_string, binary, letter_binary):
             pos += 1
 
     # output the uncompressed data
-    print ("Your uncompressed message is:")
-    print (uncompressed_string)
+    if PRINT:
+        print ("Your uncompressed message is:")
+        print (uncompressed_string)
 
 display_summary(my_string, binary, letter_binary)

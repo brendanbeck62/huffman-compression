@@ -1,1 +1,3 @@
-.vscode/settings.json
+.vscode
+input.txt
+test.py
